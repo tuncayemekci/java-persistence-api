@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name="message")
+@Entity
 public class Message {
 
     @Id

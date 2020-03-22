@@ -1,26 +1,36 @@
 import model.User;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 public class main {
 
     public static void main(String[] args) {
 
-        User u = new User();
-        u.setUid(101);
-        u.setName("Tuncay");
-        u.setEmail("tuncayemekci@gmail.com");
+        Configuration conf = new Configuration().configure()
+                .addAnnotatedClass(User.class);
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
-        EntityManager em = emf.createEntityManager();
+        ServiceRegistry sr = new StandardServiceRegistryBuilder().applySettings(conf.getProperties()).build();
 
-        em.getTransaction().begin();
-        em.persist(u);
-        em.getTransaction().commit();
+        SessionFactory sf = conf.buildSessionFactory(sr);
 
-        User user = em.find(User.class, 1);
+        Session session = sf.openSession();
+
+        Transaction tr = session.beginTransaction();
+
+
+        User joe = new User();
+        joe.setUid(102);
+        joe.setName("Joe Goldberg");
+        joe.setEmail("joe.goldberg@gmail.com");
+
+        session.save(joe);
+
+        tr.commit();
+
 
     }
 }

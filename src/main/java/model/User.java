@@ -2,9 +2,8 @@ package model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.UniqueConstraint;
 
-@Entity(name="user")
+@Entity
 public class User {
 
     @Id
@@ -36,5 +35,12 @@ public class User {
         this.email = email;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
