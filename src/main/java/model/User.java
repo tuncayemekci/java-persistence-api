@@ -1,22 +1,28 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    private int uid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
     private String email;
+    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "users", fetch = FetchType.EAGER)
+    private Collection<Message> messages = new ArrayList<>();
 
-    public int getUid() {
-        return uid;
+    public int getId() {
+        return id;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setId(int uid) {
+        this.id = uid;
     }
 
     public String getName() {
@@ -35,10 +41,18 @@ public class User {
         this.email = email;
     }
 
+    public Collection<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Collection<Message> messages) {
+        this.messages = messages;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "uid=" + uid +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 '}';
