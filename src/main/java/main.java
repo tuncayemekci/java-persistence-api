@@ -7,7 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import java.util.Random;
+import java.util.*;
 
 public class main {
 
@@ -25,9 +25,18 @@ public class main {
 
         Transaction tr = session.beginTransaction();
 
+
+
         User user = (User) session.get(User.class, 1);
 
-        System.out.println(user);
+
+        Message m = new Message();
+        m.setText("Hello");
+        m.setUser(user);
+
+        System.out.println(m);
+
+        user.getMessages().add(m);
 
         session.save(user);
 

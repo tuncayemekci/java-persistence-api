@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "message")
@@ -13,9 +14,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String text;
-    private Date date = new Date();
-    @ManyToOne(targetEntity = User.class)
-    private Collection<User> users = new ArrayList<>();
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public int getId() {
         return id;
@@ -33,20 +34,20 @@ public class Message {
         this.text = text;
     }
 
-    public Date getDate() {
-        return date;
+    public User getUser() {
+        return user;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Collection<User> getUsers() {
-        return users;
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", users=" + user +
+                '}';
     }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
-
 }

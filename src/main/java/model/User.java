@@ -14,15 +14,15 @@ public class User {
     private int id;
     private String name;
     private String email;
-    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "users", fetch = FetchType.EAGER)
-    private Collection<Message> messages = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Message> messages = new ArrayList<>();
 
     public int getId() {
         return id;
     }
 
-    public void setId(int uid) {
-        this.id = uid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -41,11 +41,11 @@ public class User {
         this.email = email;
     }
 
-    public Collection<Message> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Collection<Message> messages) {
+    public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
 
