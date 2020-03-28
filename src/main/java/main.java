@@ -40,7 +40,7 @@ public class main {
 
         session.save(user);
 
-        //session.save(generateRandomUser());
+        session.save(generateRandomUser());
 
         tr.commit();
 
